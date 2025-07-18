@@ -119,12 +119,12 @@ export async function getFriendRequests(req, res) {
     const incomingReqs = await FriendRequest.find({
       recipient: req.user._id,
       status: "pending",
-    }).populate("sender", "fullName profilePic nativeLanguage learningLanguage");
+    }).populate("sender", "fullName profilePic nativeLanguage learningLanguage").sort({ createdAt: -1 });
 
     const acceptedReqs = await FriendRequest.find({
       sender: req.user.id,
       status: "accepted",
-    }).populate("recipient", "fullName profilePic");
+    }).populate("recipient", "fullName profilePic").sort({ createdAt: -1 });
 
     res.status(200).json({ incomingReqs, acceptedReqs });
   } catch (error) {
@@ -144,5 +144,27 @@ export async function getOutgoingFriendReqs(req, res) {
   } catch (error) {
     console.log("Error in getOutgoingFriendReqs controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+export async function rejectFriendRequest(req,res){
+  try {
+    const {id:requestId} = req.params;
+    const rejReq = await FriendRequest.findById(requestId);
+
+    if(!rejReq){
+      return res.status(404).json({message:"Friend reject Request not found"});
+    }
+
+    if(rejReq.recipient.toString() !== req.user._id.toString()){
+      return res.status(403).json({message:"Not authorized to reject this request"})
+    }
+
+    await rejReq.deleteOne();
+
+    res.status(200).json({success:true,message:"Request rejected and removed"})
+  } catch (error) {
+    console.log("Error in rejectFriendRequest controller",error.message);
+    res.status(500).json({message:"Internal Server Error"});
   }
 }

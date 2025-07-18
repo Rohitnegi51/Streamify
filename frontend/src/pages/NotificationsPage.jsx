@@ -1,8 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { acceptFriendRequest, getFriendRequests } from "../lib/api";
+import { acceptFriendRequest, getFriendRequests, rejectFriendReq } from "../lib/api";
 import { BellIcon, ClockIcon, MessageSquareIcon, UserCheckIcon } from "lucide-react";
 import NoNotificationsFound from "../components/NoNotificationsFound";
-
 const NotificationsPage = () => {
   const queryClient = useQueryClient();
 
@@ -18,6 +17,15 @@ const NotificationsPage = () => {
       queryClient.invalidateQueries({ queryKey: ["friends"] });
     },
   });
+
+  const {mutate: rejectRequestMutation , isPending :isRejectPending} = useMutation({
+    mutationFn:rejectFriendReq,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["friendRequests"] });
+      queryClient.invalidateQueries({ queryKey: ["outgoingFriendReqs"] });
+
+    },
+  })
 
   const incomingRequests = friendRequests?.incomingReqs || [];
   const acceptedRequests = friendRequests?.acceptedReqs || [];
@@ -66,6 +74,7 @@ const NotificationsPage = () => {
                             </div>
                           </div>
 
+                          <div className="flex flex-col sm:flex-row gap-1.5">
                           <button
                             className="btn btn-primary btn-sm"
                             onClick={() => acceptRequestMutation(request._id)}
@@ -73,6 +82,11 @@ const NotificationsPage = () => {
                           >
                             Accept
                           </button>
+
+                          <button className="btn btn-secondary btn-sm" onClick = {()=>rejectRequestMutation(request._id)} disabled={isRejectPending}>
+                            Reject
+                          </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -107,7 +121,7 @@ const NotificationsPage = () => {
                             </p>
                             <p className="text-xs flex items-center opacity-70">
                               <ClockIcon className="h-3 w-3 mr-1" />
-                              Recently
+                              recently
                             </p>
                           </div>
                           <div className="badge badge-success">

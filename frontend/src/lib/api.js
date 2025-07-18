@@ -66,3 +66,8 @@ export const getStreamToken = async () => {
   const res = await axiosInstance.get("/chat/token");
   return res.data;
 };
+
+export const rejectFriendReq = async (userId)=>{
+  const res = await axiosInstance.delete(`/users/reject-request/${userId}`);
+  return res.data;
+}
