@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router";
 import useAuthUser from "../hooks/useAuthUser";
-import { BellIcon, ContactRoundIcon, LogOutIcon, ShipWheelIcon, User2Icon } from "lucide-react";
+import { BellIcon, LogOutIcon, ShipWheelIcon, UsersIcon } from "lucide-react";
 import ThemeSelector from "./ThemeSelector";
 import useLogout from "../hooks/useLogout";
 
@@ -55,7 +55,7 @@ const Navbar = () => {
           <div className="lg:hidden">
             <Link to={"/friends"}>
               <button className="btn tbn-ghost btn-circle">
-                <ContactRoundIcon className="size-6 text-base-content opacity-70"/>
+                <UsersIcon className="size-6 text-base-content opacity-70"/>
               </button>
             </Link>
           </div>

@@ -95,6 +95,7 @@ export async function acceptFriendRequest(req, res) {
     }
 
     friendRequest.status = "accepted";
+    friendRequest.acceptedAt = new Date();
     await friendRequest.save();
 
     // add each user to the other's friends array

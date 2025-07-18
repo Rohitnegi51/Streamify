@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { acceptFriendRequest, getFriendRequests, rejectFriendReq } from "../lib/api";
 import { BellIcon, ClockIcon, MessageSquareIcon, UserCheckIcon } from "lucide-react";
 import NoNotificationsFound from "../components/NoNotificationsFound";
+import {formatDistanceToNow} from "date-fns"
 const NotificationsPage = () => {
   const queryClient = useQueryClient();
 
@@ -121,7 +122,7 @@ const NotificationsPage = () => {
                             </p>
                             <p className="text-xs flex items-center opacity-70">
                               <ClockIcon className="h-3 w-3 mr-1" />
-                              recently
+                              {formatDistanceToNow(new Date(notification.acceptedAt), { addSuffix: true })}
                             </p>
                           </div>
                           <div className="badge badge-success">
