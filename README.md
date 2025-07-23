@@ -40,7 +40,7 @@ This project also helped me:
 # 📁 Project Structure
 
 Below is the folder structure of **Streamify**:
-```
+```plaintext
 streamify/
 ├── backend/
 │   ├── controllers/     # API controllers (friend requests, auth, etc.)
@@ -108,12 +108,12 @@ cd ../frontend
 npm i
 ```
 
-create .env in frontend
+Create .env in frontend
 ```
 VITE_STREAM_API_KEY=(same as backend stream api key)
 ```
 
-run the dev server 
+Run the dev server 
 ```
 npm run dev
 ```
@@ -152,26 +152,6 @@ Could add: group chat, interest-based recommendations, better search.
 
 ### 🙏 Credits & Inspiration
 Inspired by Codesistency YouTube channel — I learned a lot from their tutorial and then customized & extended it for my project.
-
----
-
-### 🏃 Usage
-On Home Page → see your friends + recommended users.
-
-Send friend requests to new users.
-
-Notifications Page → see pending requests & new accepted friends.
-
-Chat or call one-on-one with connected friends.
-
----
-
-### 🎨 Styling
-Built with Tailwind CSS for fast utility-first styling.
-
-Used DaisyUI for clean, elegant components.
-
-Fully responsive for mobile & desktop.
 
 ---
 
