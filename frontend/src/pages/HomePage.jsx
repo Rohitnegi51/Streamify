@@ -26,16 +26,22 @@ const HomePage = () => {
   const { data: friends = [], isLoading: loadingFriends } = useQuery({
     queryKey: ["friends"],
     queryFn: getUserFriends,
+    refetchInterval: 5000,
+    staleTime: 0,
   });
 
   const { data: recommendedUsers = [], isLoading: loadingUsers } = useQuery({
     queryKey: ["users"],
     queryFn: getRecommendedUsers,
+    refetchInterval: 5000,
+    refetchOnWindowFocus: true,
+    staleTime:0,
   });
 
   const { data: outgoingFriendReqs } = useQuery({
     queryKey: ["outgoingFriendReqs"],
     queryFn: getOutgoingFriendReqs,
+    refetchInterval: 5000,
   });
 
   const [sendingRequestTo, setSendingRequestTo] = useState(null);
@@ -54,8 +60,9 @@ const HomePage = () => {
       outgoingFriendReqs.forEach((req) => {
         outgoingIds.add(req.recipient._id);
       });
-      setOutgoingRequestsIds(outgoingIds);
+      
     }
+    setOutgoingRequestsIds(outgoingIds);
   }, [outgoingFriendReqs]);
 
   return (

@@ -54,7 +54,7 @@ const Navbar = () => {
 
           <div className="lg:hidden">
             <Link to={"/friends"}>
-              <button className="btn tbn-ghost btn-circle">
+              <button className="btn btn-ghost btn-circle">
                 <UsersIcon className="size-6 text-base-content opacity-70"/>
               </button>
             </Link>
